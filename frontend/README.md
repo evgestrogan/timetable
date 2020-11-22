@@ -1,19 +1,5 @@
 # frontend
 
-## Project setup
-```
-yarn install
-```
+## About project
 
-### Compiles and hot-reloads for development
-```
-yarn serve
-```
-
-### Compiles and minifies for production
-```
-yarn build
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+Timetable frontend for Border Guard Institute. Implemented with Vue.js
