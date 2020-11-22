@@ -5,6 +5,7 @@ from django.contrib.auth.models import PermissionsMixin
 from django.contrib.auth.base_user import AbstractBaseUser
 from django.contrib.auth.validators import UnicodeUsernameValidator
 from django.utils.translation import ugettext_lazy as _
+from django.utils import timezone
 
 from .managers import UserManager
 
@@ -25,7 +26,7 @@ class User(AbstractBaseUser, PermissionsMixin):
             'unique': _("A user with that username already exists."),
         },
     )
-    date_joined = models.DateTimeField(_('date joined'), auto_now_add=True)
+    date_joined = models.DateTimeField(_('date joined'), default=timezone.now)
     is_staff = models.BooleanField(
         _('staff status'),
         default=False,
