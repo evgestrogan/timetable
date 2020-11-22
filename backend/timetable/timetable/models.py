@@ -4,6 +4,14 @@ from django.conf import settings
 from .fields import IntegerRangeField
 
 
+def stay_personal_number():
+    """generate personal unique number for teacher"""
+    last_teacher = Teacher.objects.last()
+    if last_teacher is None:
+        return 100
+    return last_teacher.personal_number + 1
+
+
 class Teacher(models.Model):
     """Table information about teacher."""
     user = models.OneToOneField(settings.AUTH_USER_MODEL,
@@ -13,13 +21,19 @@ class Teacher(models.Model):
                                 null=True,
                                 )
     last_name = models.CharField(max_length=50,
-                                 verbose_name='Фамилия преподавателя')
+                                 verbose_name='Фамилия преподавателя',
+                                 )
     first_name = models.CharField(max_length=50,
-                                  verbose_name='Имя преподавателя')
+                                  verbose_name='Имя преподавателя',
+                                  blank=True,
+                                  )
     middle_name = models.CharField(max_length=50,
-                                   verbose_name='Отчество преподавателя')
+                                   verbose_name='Отчество преподавателя',
+                                   blank=True,
+                                   )
     personal_number = IntegerRangeField(verbose_name='Персональный номер',
                                         primary_key=True,
+                                        default=stay_personal_number,
                                         min_value=100,
                                         max_value=999,
                                         )
@@ -27,7 +41,7 @@ class Teacher(models.Model):
     class Meta:
         verbose_name_plural = 'Преподаватели'
         verbose_name = 'Преподаватель'
-        ordering = ('last_name', 'first_name')
+        ordering = ('personal_number',)
 
     def __str__(self):
         """
@@ -48,9 +62,6 @@ class Subject(models.Model):
         ordering = ('name_subject',)
 
     def __str__(self):
-        return self.name_subject
-
-    def __repr__(self):
         return self.name_subject
 
 
@@ -168,4 +179,15 @@ class Lesson(models.Model):
         return ", ".join([str(p) for p in self.employment.all()])
 
     def __str__(self):
-        return '{} {} - {} - {}'.format(self.date, self.time, self.subject, self.group)
+        return 'Занятие для {} на {} {}'.format(self.group, self.date, self.time)
+
+
+class ExcelFile(models.Model):
+    """Table for load timetable in excel file and parsing him"""
+    upload = models.FileField(upload_to='uploads/', verbose_name='Excel фаил')
+    updated = models.DateTimeField(auto_now=True, verbose_name='Время загрузки')
+
+    class Meta:
+        verbose_name_plural = 'Расписания .xlsx'
+        verbose_name = 'Расписание .xlsx'
+        ordering = ('updated',)
