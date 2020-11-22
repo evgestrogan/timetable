@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'corsheaders',
+    'timetable',
+    'users',
 ]
 
 MIDDLEWARE = [
@@ -97,6 +99,8 @@ DATABASES = {
 
 AUTH_PASSWORD_VALIDATORS = [
 ]
+
+AUTH_USER_MODEL = 'users.User'
 
 
 # Internationalization
