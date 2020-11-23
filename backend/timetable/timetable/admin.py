@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .parser import Parser
+from .parser import create_lessons
 from .models import *
 
 
@@ -64,8 +64,7 @@ class ExportCsvMixin:
         meta = self.model._meta
         field_names = [field.name for field in meta.fields]
         for obj in queryset:
-            parser = Parser([getattr(obj, field) for field in field_names])
-            parser.create_lessons()
+            create_lessons([getattr(obj, field) for field in field_names])
     export_in_database.short_description = "Загрузить расписание в базу данных"
 
 

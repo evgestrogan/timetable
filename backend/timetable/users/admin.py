@@ -11,7 +11,7 @@ class UserAdmin(UserAdmin):
     fieldsets = (
         (None, {'fields': ('username', 'password')}),
         (_('Permissions'), {
-            'fields': ('is_active', 'is_staff', 'is_superuser',),
+            'fields': ('is_active', 'groups', ),
         }),
     )
     list_display = ('username', 'is_staff')

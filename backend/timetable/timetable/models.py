@@ -147,13 +147,16 @@ class Lesson(models.Model):
     employment = models.ManyToManyField(Employment,
                                         verbose_name='Занятие',
                                         blank=True,
+                                        related_name='lesson',
                                         )
     classroom = models.ManyToManyField(Classroom,
                                        verbose_name='Номер аудитории',
+                                       related_name='lesson',
                                        )
     teacher = models.ManyToManyField(Teacher,
                                      verbose_name='Преподаватель',
                                      blank=True,
+                                     related_name='lesson',
                                      )
     time = models.CharField(max_length=10,
                             choices=TIME_LESSON_CHOICES,

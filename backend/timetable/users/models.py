@@ -29,7 +29,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     date_joined = models.DateTimeField(_('date joined'), default=timezone.now)
     is_staff = models.BooleanField(
         _('staff status'),
-        default=False,
+        default=True,
         help_text=_('Designates whether the user can log into this admin site.'),
     )
     is_active = models.BooleanField(
