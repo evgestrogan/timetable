@@ -1,32 +1,33 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
-  </div>
+    <b-container id="app" fluid class="h-100 w-100">
+      <b-row>
+        <b-col class="text-left"><a class="btn btn-info button-menu" @click="back_button()">НАЗАД</a></b-col>
+        <b-col class="text-center"><router-link class="btn btn-info button-menu" :to="{ name: 'Menu' }">НА ГЛАВНУЮ</router-link></b-col>
+        <b-col class="text-right"><a class="btn btn-info button-menu" href="#">ИНФО-ПОРТАЛ</a></b-col>
+      </b-row>
+      <router-view class="text-center"></router-view>
+    </b-container>
 </template>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+<script>
+export default {
+  name: 'App',
+  methods: {
+    back_button(){
+      this.$router.go(-1)
+    }
+  },
 }
+</script>
 
-#nav {
-  padding: 30px;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
+<style scoped>
+.button-menu {
+    height: 80px;
+    margin-bottom: 0px;
+    margin-top: 0px;
+    font-size: 25px;
+    color: white;
+    padding-top: 20px;
+    width: 210px;
 }
 </style>

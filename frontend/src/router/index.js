@@ -1,23 +1,70 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
 
 Vue.use(VueRouter)
 
 const routes = [
   {
     path: '/',
-    name: 'Home',
-    component: Home
+    component: () => import('../views/Menu.vue'),
+    children: [
+      {
+        path: '',
+        name: 'Menu',
+        component: () => import('../components/MenuButton.vue'),
+      },
+      {
+        path: 'student',
+        name: 'Student',
+        component: () => import('../components/MenuButton.vue'),
+      },
+      {
+        path: 'teacher',
+        name: 'Teacher',
+        component: () => import('../components/TeacherInput.vue'),
+      },
+      {
+        path: 'student/cadet',
+        name: 'Cadet',
+        component: () => import('../components/MenuButton.vue'),
+      },
+      {
+        path: 'student/listener',
+        name: 'Listener',
+        component: () => import('../components/StudentGroupButton.vue'),
+      },
+      {
+        path: 'student/course',
+        name: 'Course',
+        component: () => import('../components/StudentGroupButton.vue'),
+      },
+      {
+        path: 'student/cadet/:number_course',
+        name: 'Number_course',
+        component: () => import('../components/StudentGroupButton.vue'),
+      },
+    ]
   },
   {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
-  }
+    path: '/student/listener/:number_group',
+    name: 'ListenerTimetable',
+    component: () => import('../views/StudentTimetable.vue'),
+  },
+  {
+    path: '/student/course/:number_group',
+    name: 'CourseTimetable',
+    component: () => import('../views/StudentTimetable.vue'),
+  },
+  {
+    path: '/student/cadet/:number_course/:number_group',
+    name: 'CadetTimetable',
+    component: () => import('../views/StudentTimetable.vue'),
+  },
+  {
+    path: '/teacher/:personal_number',
+    name: 'TeacherTimetable',
+    component: () => import('../views/StudentTimetable.vue'),
+  },
 ]
 
 const router = new VueRouter({

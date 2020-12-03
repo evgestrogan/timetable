@@ -5,6 +5,7 @@ from .teacher_serializer import TeacherSerializer
 
 
 class LessonSerializer(serializers.Serializer):
+    """Serializer for student lessons"""
     group = serializers.CharField()
     subject = serializers.CharField()
     employment = EmploymentSerializer(many=True, read_only=True)
